@@ -1,0 +1,42 @@
+acordada
+acordadas
+acta
+actas
+acuerdo
+acuerdos
+circular
+circulares
+comunicacion
+comunicaciones
+convenio
+convenios
+decision
+decisiones
+decision administrativa
+decisiones administrativas
+decreto
+decretos
+decreto/ley
+decretos/ley
+directiva
+directivas
+disposicion
+disposiciones
+instruccion
+instrucciones
+interpretacion
+interpretaciones
+laudo
+laudos
+ley
+leyes
+nota
+notas
+nota externa
+notas externas
+protocolo
+protocolos
+recomendacion
+recomendaciones
+resolucion
+resoluciones

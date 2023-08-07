@@ -1,0 +1,16 @@
+0:  NO ENTIDAD
+
+1:  B-NOR: Tipo de norma (INICIO)
+2:  I-NOR: Tipo de norma (CONTINUACION)
+
+3:  B-ORG: Organismos
+4:  I-ORG
+
+5:  B-REP: Repositorio (InfoLEG, SAIJ, etc)
+6:  I-REP
+
+7:  B-FEC: Fechas
+8:  I-FEC
+
+9:  B-MISC
+10: I-MISC
