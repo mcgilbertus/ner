@@ -42,8 +42,8 @@ def cleantext(text):
     # Eliminar caracteres especiales y dígitos
     cleaned_text = re.sub(r'[!@#]', '', cleaned_text)
 
-    # Patrón de expresión regular para buscar caracteres duplicados, excepto 'R' y 'L'
-    cleaned_text = re.sub(r'([^rlw])\1+', r'\1', cleaned_text)
+    # Patrón de expresión regular para buscar caracteres duplicados, excepto 'C', 'R' y 'L'
+    cleaned_text = re.sub(r'([^crlw])\1+', r'\1', cleaned_text)
 
     # Corregir palabras repetidas que se repiten más de 2 veces
     cleaned_text = re.sub(r'\b(\w+)\b(?:\s+\1)+', r'\1', cleaned_text)
@@ -97,7 +97,9 @@ def taggea_frase(frase: list[str], tag_inicio: int, tag_continuacion: int, palab
         if tags[comienzo] == tag_nulo:
             encontrada = True
             for j in range(1, len(frase)):
-                if palabras[comienzo + j] != frase[j] or tags[comienzo + j] != tag_nulo:
+                if comienzo + j >= len(palabras) \
+                        or palabras[comienzo + j] != frase[j] \
+                        or tags[comienzo + j] != tag_nulo:
                     encontrada = False
                     break
             if encontrada:
@@ -147,30 +149,25 @@ def procesar_archivo(archivo, dest_file):
             completa_tags(organismos, tag_inicio=3, tag_continuacion=4, palabras=palabras, tags=tags)
             for p, t in zip(palabras, tags):
                 dest_file.write(f'{p} {t}\n')
-            dest_file.write('\n') # una linea en blanco entre cada linea de texto
+            dest_file.write('\n')  # una linea en blanco entre cada linea de texto
             # imprimir_linea_y_tags(palabras, tags, tag_names)
             # print()
-
 
 
 if __name__ == '__main__':
     # prepara las listas generales
     with open('tipos_normas.txt', 'r', encoding='utf-8') as f:
         tipos_normas = f.read().splitlines()
-    tipos_normas = sorted(tipos_normas, key=len, reverse=True)
 
     with open('organismos.txt', 'r', encoding='utf-8') as f:
         organismos = f.read().splitlines()
-    organismos = sorted(organismos, key=len, reverse=True)
 
     tag_names = leer_tag_names()
 
     with open('dataset.csv', 'w', encoding='utf-8') as dest_file:
         num_archivo = 0
-        for f in glob.glob('../pyjuriscrapper/txt/*.txt'):
+        for f in glob.glob('../scrapper/txt/*.txt'):
             procesar_archivo(f, dest_file)
             num_archivo += 1
             if num_archivo % 100 == 0:
                 print(f'Procesados {num_archivo} archivos')
-
-
