@@ -1,20 +1,4 @@
 # coding=utf-8
-# Copyright 2020 HuggingFace Datasets Authors.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-# Lint as: python3
-"""Introduction to the CoNLL-2003 Shared Task: Language-Independent Named Entity Recognition"""
 
 import os
 
@@ -24,20 +8,10 @@ import datasets
 logger = datasets.logging.get_logger(__name__)
 
 
-_CITATION = """\
-@inproceedings{tjong-kim-sang-de-meulder-2003-introduction,
-    title = "Introduction to the {C}o{NLL}-2003 Shared Task: Language-Independent Named Entity Recognition",
-    author = "Tjong Kim Sang, Erik F.  and
-      De Meulder, Fien",
-    booktitle = "Proceedings of the Seventh Conference on Natural Language Learning at {HLT}-{NAACL} 2003",
-    year = "2003",
-    url = "https://www.aclweb.org/anthology/W03-0419",
-    pages = "142--147",
-}
-"""
+_CITATION = """"""
 
 _DESCRIPTION = """\
-Datos de IngoLeg con 10k de muestras para NER
+Datos de InfoLeg con 10k de muestras para NER
 """
 
 _URL = "https://huggingface.co/datasets/McGilbertus/infoleg_10k_ner/blob/main/dataset.zip"
@@ -116,8 +90,6 @@ class Conll2003(datasets.GeneratorBasedBuilder):
         with open(filepath, encoding="utf-8") as f:
             guid = 0
             tokens = []
-            pos_tags = []
-            chunk_tags = []
             ner_tags = []
             for line in f:
                 if line.startswith("-DOCSTART-") or line == "" or line == "\n":
@@ -125,28 +97,20 @@ class Conll2003(datasets.GeneratorBasedBuilder):
                         yield guid, {
                             "id": str(guid),
                             "tokens": tokens,
-                            "pos_tags": pos_tags,
-                            "chunk_tags": chunk_tags,
                             "ner_tags": ner_tags,
                         }
                         guid += 1
                         tokens = []
-                        pos_tags = []
-                        chunk_tags = []
                         ner_tags = []
                 else:
                     # conll2003 tokens are space separated
                     splits = line.split(" ")
                     tokens.append(splits[0])
-                    pos_tags.append(splits[1])
-                    chunk_tags.append(splits[2])
-                    ner_tags.append(splits[3].rstrip())
+                    ner_tags.append(splits[1].rstrip())
             # last example
             if tokens:
                 yield guid, {
                     "id": str(guid),
                     "tokens": tokens,
-                    "pos_tags": pos_tags,
-                    "chunk_tags": chunk_tags,
                     "ner_tags": ner_tags,
                 }
