@@ -89,7 +89,7 @@ def taggea_frase(frase: list[str], tag_inicio: int, tag_continuacion: int, palab
     """
     # for i in range(len(frase)):
     try:
-        comienzo = palabras.index(frase[0], 0, len(palabras) - len(frase[0]))
+        comienzo = palabras.index(frase[0], 0, len(palabras) - len(frase))
     except ValueError:
         comienzo = -1
 
